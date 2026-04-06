@@ -1,0 +1,15 @@
+[Unit]
+Description=SmartEduConnect Laravel Queue Worker
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+Restart=always
+ExecStart=/usr/bin/php /var/www/smarteduconnect-api/backend/artisan queue:work --sleep=3 --tries=3 --timeout=120
+WorkingDirectory=/var/www/smarteduconnect-api/backend
+StandardOutput=append:/var/log/smarteduconnect-queue.log
+StandardError=append:/var/log/smarteduconnect-queue-error.log
+
+[Install]
+WantedBy=multi-user.target

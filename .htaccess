@@ -1,0 +1,34 @@
+# Prevent index.html from being cached so new deployments are picked up immediately
+<IfModule mod_headers.c>
+    <FilesMatch "^index\.html$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # 1. Serve uploaded files directly as static files (MUST come before /backend/ rule)
+    RewriteCond %{REQUEST_URI} ^/backend/public/uploads/ [NC]
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+
+    # 2. Serve legacy storage files directly as static files
+    RewriteCond %{REQUEST_URI} ^/backend/public/storage/ [NC]
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+
+    # 3. Pass all /api/ and /backend/ requests to the backend (no rewriting)
+    RewriteCond %{REQUEST_URI} ^/api/ [NC,OR]
+    RewriteCond %{REQUEST_URI} ^/backend/ [NC]
+    RewriteRule ^ - [L]
+
+    # 4. React Client-side Routing
+    RewriteRule ^index\.html$ - [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /index.html [L]
+</IfModule>

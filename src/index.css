@@ -1,0 +1,393 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide scrollbars globally but keep scroll functionality */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+*::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Opera */
+}
+
+@layer base {
+  :root {
+    /* Smart EduConnect - Plum + Warm Sand Theme */
+    --background: 30 15% 97%;
+    --foreground: 210 20% 16%;
+
+    --card: 30 10% 100%;
+    --card-foreground: 210 20% 16%;
+
+    --popover: 30 10% 100%;
+    --popover-foreground: 210 20% 16%;
+
+    /* Primary - ASE Blue */
+    --primary: 210 85% 40%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Warm Sand */
+    --secondary: 32 45% 68%;
+    --secondary-foreground: 32 40% 16%;
+
+    /* Muted */
+    --muted: 30 12% 91%;
+    --muted-foreground: 210 12% 46%;
+
+    /* Accent - Soft neutral for hover states */
+    --accent: 210 15% 93%;
+    --accent-foreground: 210 20% 16%;
+
+    /* Success - Olive */
+    --success: 85 35% 45%;
+    --success-foreground: 0 0% 100%;
+
+    /* Warning - Warm Sienna */
+    --warning: 24 78% 52%;
+    --warning-foreground: 0 0% 100%;
+
+    --destructive: 355 65% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders */
+    --border: 30 14% 86%;
+    --input: 30 14% 86%;
+    --ring: 210 85% 40%;
+
+    --radius: 0.75rem;
+
+    /* Sidebar - Deep Blue */
+    --sidebar-background: 210 50% 14%;
+    --sidebar-foreground: 210 20% 95%;
+    --sidebar-primary: 210 85% 60%;
+    --sidebar-primary-foreground: 210 50% 14%;
+    --sidebar-accent: 210 40% 20%;
+    --sidebar-accent-foreground: 210 20% 95%;
+    --sidebar-border: 210 38% 20%;
+    --sidebar-ring: 210 85% 60%;
+
+    /* Role-specific colors — from ASE Tech logo */
+    --admin: 210 85% 40%;
+    --admin-foreground: 0 0% 100%;
+    --teacher: 152 35% 16%;
+    --teacher-foreground: 0 0% 100%;
+    --parent: 210 8% 45%;
+    --parent-foreground: 0 0% 100%;
+
+    /* Highlight - Light Sand */
+    --highlight: 32 50% 92%;
+    --highlight-foreground: 32 45% 22%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(210 85% 40%), hsl(210 75% 50%));
+    --gradient-admin: linear-gradient(135deg, hsl(210 85% 40%), hsl(210 70% 32%));
+    --gradient-teacher: linear-gradient(135deg, hsl(152 35% 16%), hsl(152 30% 22%));
+    --gradient-parent: linear-gradient(135deg, hsl(210 8% 45%), hsl(210 8% 52%));
+    --gradient-card: linear-gradient(145deg, hsl(30 10% 100%), hsl(30 12% 96%));
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.06);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.08), 0 8px 10px -6px rgb(0 0 0 / 0.06);
+    --shadow-glow: 0 0 20px hsl(210 85% 40% / 0.12);
+  }
+
+  .dark {
+    --background: 210 22% 7%;
+    --foreground: 210 12% 95%;
+
+    --card: 210 20% 11%;
+    --card-foreground: 210 12% 95%;
+
+    --popover: 210 20% 11%;
+    --popover-foreground: 210 12% 95%;
+
+    --primary: 210 75% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 32 40% 58%;
+    --secondary-foreground: 32 35% 14%;
+
+    --muted: 210 16% 18%;
+    --muted-foreground: 210 10% 58%;
+
+    --accent: 210 15% 18%;
+    --accent-foreground: 210 12% 95%;
+
+    --destructive: 355 58% 42%;
+    --destructive-foreground: 30 12% 95%;
+
+    --border: 210 16% 20%;
+    --input: 210 16% 20%;
+    --ring: 210 75% 50%;
+
+    --sidebar-background: 210 30% 6%;
+    --sidebar-foreground: 210 12% 95%;
+    --sidebar-primary: 210 85% 60%;
+    --sidebar-primary-foreground: 210 30% 12%;
+    --sidebar-accent: 210 20% 14%;
+    --sidebar-accent-foreground: 210 12% 95%;
+    --sidebar-border: 210 20% 14%;
+    --sidebar-ring: 210 85% 60%;
+
+    --highlight: 32 40% 22%;
+    --highlight-foreground: 32 50% 85%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    @apply font-semibold tracking-tight;
+  }
+}
+
+/* Mobile-first responsive typography & compact UI */
+@media (max-width: 639px) {
+  h1 { font-size: 1.25rem !important; }
+  h2 { font-size: 1.1rem !important; }
+  h3 { font-size: 1rem !important; }
+  .card-stat { padding: 0.875rem !important; }
+  .card-elevated { border-radius: 0.75rem; }
+
+  /* Compact mobile search bars */
+  input[class*="pl-10"],
+  input[class*="pl-9"] {
+    height: 2.25rem !important;
+    font-size: 0.8rem !important;
+    padding-left: 2.25rem !important;
+    border-radius: 0.625rem !important;
+  }
+
+  /* Adjust search icon positioning for compact input */
+  .relative > svg.absolute {
+    width: 0.875rem !important;
+    height: 0.875rem !important;
+  }
+
+  /* Compact mobile action buttons (only buttons, not banner divs) */
+  button.gradient-admin,
+  button.gradient-teacher,
+  button.gradient-parent,
+  a.gradient-admin,
+  a.gradient-teacher,
+  a.gradient-parent {
+    height: 2.25rem !important;
+    font-size: 0.75rem !important;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+    border-radius: 0.625rem !important;
+    gap: 0.25rem !important;
+  }
+
+  button.gradient-admin svg,
+  button.gradient-teacher svg,
+  button.gradient-parent svg,
+  a.gradient-admin svg,
+  a.gradient-teacher svg,
+  a.gradient-parent svg {
+    width: 0.875rem !important;
+    height: 0.875rem !important;
+  }
+
+  /* Compact select triggers on mobile */
+  [data-radix-collection-item],
+  button[role="combobox"] {
+    height: 2.25rem !important;
+    font-size: 0.8rem !important;
+    border-radius: 0.625rem !important;
+  }
+
+  /* Date inputs - proper alignment and sizing */
+  input[type="date"] {
+    height: 2.25rem !important;
+    font-size: 0.75rem !important;
+    border-radius: 0.625rem !important;
+    padding: 0.25rem 0.5rem !important;
+  }
+
+  /* Compact page description text */
+  p.text-muted-foreground {
+    font-size: 0.75rem !important;
+    line-height: 1.25rem !important;
+  }
+
+  /* Compact badge sizes */
+  .status-badge,
+  [class*="Badge"] {
+    font-size: 0.625rem !important;
+    padding: 0.125rem 0.5rem !important;
+  }
+}
+
+@layer components {
+  .sidebar-teacher {
+    --sidebar-background: 152 35% 16%;
+    --sidebar-foreground: 45 60% 90%;
+    --sidebar-primary: 45 70% 55%;
+    --sidebar-primary-foreground: 152 35% 10%;
+    --sidebar-accent: 152 25% 24%;
+    --sidebar-accent-foreground: 45 60% 90%;
+    --sidebar-border: 152 25% 20%;
+    --sidebar-ring: 45 70% 55%;
+  }
+
+  .sidebar-parent {
+    --sidebar-background: 210 8% 30%;
+    --sidebar-foreground: 210 10% 92%;
+    --sidebar-primary: 210 15% 75%;
+    --sidebar-primary-foreground: 210 8% 15%;
+    --sidebar-accent: 210 8% 38%;
+    --sidebar-accent-foreground: 210 10% 92%;
+    --sidebar-border: 210 8% 35%;
+    --sidebar-ring: 210 15% 75%;
+  }
+
+  .card-elevated {
+    @apply bg-card rounded-xl border shadow-md hover:shadow-lg transition-all duration-300;
+  }
+
+  .card-stat {
+    @apply bg-card rounded-xl border p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1;
+  }
+
+  .gradient-primary {
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary) / 0.8));
+  }
+
+  .gradient-admin {
+    background: var(--gradient-admin);
+  }
+
+  .gradient-teacher {
+    background: var(--gradient-teacher);
+  }
+
+  .gradient-parent {
+    background: var(--gradient-parent);
+  }
+
+  .text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glow-effect {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .sidebar-item {
+    @apply flex items-center gap-3 px-4 py-3 rounded-lg text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-foreground transition-all duration-200;
+  }
+
+  .sidebar-item-active {
+    @apply bg-sidebar-accent text-sidebar-primary font-medium;
+  }
+
+  .btn-role-admin {
+    @apply text-white font-medium;
+    background: var(--gradient-admin);
+  }
+
+  .btn-role-teacher {
+    @apply text-white font-medium;
+    background: var(--gradient-teacher);
+  }
+
+  .btn-role-parent {
+    @apply text-white font-medium;
+    background: var(--gradient-parent);
+  }
+
+  .status-badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .status-active {
+    @apply bg-success/10 text-success;
+  }
+
+  .status-inactive {
+    @apply bg-muted text-muted-foreground;
+  }
+
+  .status-pending {
+    @apply bg-warning/10 text-warning;
+  }
+
+  .status-approved {
+    @apply bg-success/10 text-success;
+  }
+
+  .status-rejected {
+    @apply bg-destructive/10 text-destructive;
+  }
+
+  .table-header {
+    @apply bg-muted/50 text-muted-foreground text-xs uppercase tracking-wider font-semibold;
+  }
+
+  .avatar-ring {
+    @apply ring-2 ring-primary/20 ring-offset-2 ring-offset-background;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.4s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

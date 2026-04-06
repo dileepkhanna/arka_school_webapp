@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "skills": {
+    "flutter-animating-apps": {
+      "source": "flutter/skills",
+      "sourceType": "github",
+      "computedHash": "df4443b32d5d2f266a3fd4f58e4bff44f6ed6264df723a904d5ef3108785db18"
+    },
+    "flutter-architecting-apps": {
+      "source": "flutter/skills",
+      "sourceType": "github",
+      "computedHash": "5e45577e7ad0ebd27eaa20b0f006967cdc71d420b5f2c7ea9e8db860a07d0802"
+    },
+    "flutter-building-layouts": {
+      "source": "flutter/skills",
+      "sourceType": "github",
+      "computedHash": "1010c7fbc41061aa1c7d215cbea36cb9ffbb851bd33aea2e4175f74215e7b602"
+    },
+    "flutter-caching-data": {
+      "source": "flutter/skills",
+      "sourceType": "github",
+      "computedHash": "0369bd369995eebbb3024859b27aebd48612935517b68d762e27ec24cf32f27b"
+    },
+    "flutter-managing-state": {
+      "source": "flutter/skills",
+      "sourceType": "github",
+      "computedHash": "70a4099bf10906fa4e2c519b9408fea0776dca956c8bf833bf6b452022bade46"
+    },
+    "flutter-reducing-app-size": {
+      "source": "flutter/skills",
+      "sourceType": "github",
+      "computedHash": "1501a6fe105eddf805139d5ff167c1ab4992dc69e6dd1bd2c8eaba4732a8e70c"
+    },
+    "flutter-theming-apps": {
+      "source": "flutter/skills",
+      "sourceType": "github",
+      "computedHash": "03f05d2aaad597d1a74c2e82d127088a5a822da79e00e3e77dd65449c9db7f7b"
+    },
+    "suggest-lucide-icons": {
+      "source": "nweii/agent-stuff",
+      "sourceType": "github",
+      "computedHash": "a693a5622f55b45cc6cf4cb396f44ff75b86420f5f1373890daa44c884907e48"
+    }
+  }
+}
