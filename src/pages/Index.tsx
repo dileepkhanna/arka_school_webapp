@@ -107,14 +107,14 @@ export default function Index() {
           <p className="space-x-4">
             <button
               onClick={() => navigate('/terms-and-conditions')}
-              className="hover:text-primary transition-colors underline"
+              className="hover:text-primary transition-colors"
             >
               Terms and Conditions
             </button>
             <span>•</span>
             <button
               onClick={() => navigate('/privacy-policy')}
-              className="hover:text-primary transition-colors underline"
+              className="hover:text-primary transition-colors"
             >
               Privacy Policy
             </button>
