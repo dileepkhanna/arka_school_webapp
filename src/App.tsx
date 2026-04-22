@@ -72,6 +72,8 @@ import ParentGallery from "./pages/parent/ParentGallery";
 import ParentNotifications from "./pages/parent/ParentNotifications";
 import ParentSettings from "./pages/parent/ParentSettings";
 import ParentComplaints from "./pages/parent/ParentComplaints";
+import TermsAndConditions from "./pages/TermsAndConditions";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 const queryClient = new QueryClient();
 
@@ -154,6 +156,10 @@ const App = () => (
             <Route path="/parent/settings" element={<ParentSettings />} />
             <Route path="/parent/academic-calendar" element={<ParentAcademicCalendar />} />
             <Route path="/parent/holiday-calendar" element={<ParentAcademicCalendar />} />
+
+            {/* Public Routes */}
+            <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
             {/* Catch-all */}
             <Route path="*" element={<NotFound />} />

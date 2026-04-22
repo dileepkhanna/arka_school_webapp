@@ -1,10 +1,10 @@
 // Prefer an explicit API base URL. In production, default to same-origin
-// `/api`, which matches the Hostinger/Apache rewrite setup in this repo.
+// root (no /api prefix) so Laravel routes are hit directly. v2
 // In development, use an empty string so requests go through the Vite proxy.
 const _envUrl = import.meta.env.VITE_API_BASE_URL;
 const API_BASE_URL = _envUrl && _envUrl.trim() !== ''
   ? _envUrl.trim().replace(/\/$/, '')
-  : (import.meta.env.PROD ? `${window.location.origin}/api` : '');
+  : (import.meta.env.PROD ? window.location.origin : '');
 
 const TOKEN_KEY = 'ase_api_token';
 
@@ -13,20 +13,7 @@ export function getApiBaseUrl(): string {
 }
 
 function getApiBaseUrlCandidates(): string[] {
-  const candidates = [API_BASE_URL];
-
-  if (import.meta.env.PROD && typeof window !== 'undefined') {
-    const origin = window.location.origin;
-    const normalizedApiOrigin = API_BASE_URL.replace(/\/api$/, '');
-
-    // If production was built against the site root, retry through `/api`
-    // when the root path is serving SPA HTML instead of Laravel JSON.
-    if (normalizedApiOrigin === origin && API_BASE_URL === origin) {
-      candidates.push(`${origin}/api`);
-    }
-  }
-
-  return [...new Set(candidates)];
+  return [API_BASE_URL];
 }
 
 export type ApiUser = {

@@ -93,11 +93,32 @@ export default function Index() {
       {/* Footer */}
       <footer className="border-t py-8 mt-auto">
         <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          <p>
-  © 2026 SmartEduConnect. All rights reserved. Designed and Developed by <a href="https://www.asetechnologies.in/" target="_blank" rel="noopener noreferrer">
-  AseTechnologies
-</a>.
-</p>
+          <p className="mb-2">
+            © 2026 SmartEduConnect. All rights reserved. Designed and Developed by{' '}
+            <a 
+              href="https://www.asetechnologies.in/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:text-primary transition-colors"
+            >
+              AseTechnologies
+            </a>.
+          </p>
+          <p className="space-x-4">
+            <button
+              onClick={() => navigate('/terms-and-conditions')}
+              className="hover:text-primary transition-colors underline"
+            >
+              Terms and Conditions
+            </button>
+            <span>•</span>
+            <button
+              onClick={() => navigate('/privacy-policy')}
+              className="hover:text-primary transition-colors underline"
+            >
+              Privacy Policy
+            </button>
+          </p>
         </div>
       </footer>
     </div>
