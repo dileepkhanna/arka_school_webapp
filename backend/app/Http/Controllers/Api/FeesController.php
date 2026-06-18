@@ -361,6 +361,7 @@ class FeesController extends Controller
                 ->whereIn("fee_id", $validated["fee_ids"])
                 ->select(
                     "id",
+                    "fee_id",
                     "amount",
                     "payment_method",
                     "receipt_number",
@@ -371,6 +372,7 @@ class FeesController extends Controller
                 ->map(
                     fn($row) => [
                         "id" => (string) $row->id,
+                        "fee_id" => (string) $row->fee_id,
                         "amount" => (float) $row->amount,
                         "payment_method" => $row->payment_method,
                         "receipt_number" => $row->receipt_number,
