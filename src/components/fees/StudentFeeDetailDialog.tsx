@@ -22,6 +22,7 @@ interface FeeRecord {
 
 interface PaymentRecord {
   id: string;
+  fee_id: string;
   amount: number;
   payment_method: string;
   receipt_number: string;
@@ -92,6 +93,10 @@ export default function StudentFeeDetailDialog({ open, onOpenChange, studentName
     });
   };
 
+  const getFeePayment = (feeId: string) => {
+    return payments.filter(p => p.fee_id === feeId).sort((a, b) => new Date(b.paid_at).getTime() - new Date(a.paid_at).getTime())[0];
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
@@ -150,12 +155,21 @@ export default function StudentFeeDetailDialog({ open, onOpenChange, studentName
                 <TableCell className="font-medium text-destructive">₹{(fee.amount - (fee.discount || 0) - (fee.paid_amount || 0)).toLocaleString()}</TableCell>
                 <TableCell>{getStatusBadge(fee.payment_status)}</TableCell>
                 <TableCell>
-                  {fee.receipt_number ? (
-                    <Button size="sm" variant="ghost" onClick={() => handleDownloadReceipt(fee.receipt_number!, fee.paid_at!, fee.fee_type, fee.amount, fee.paid_amount || 0, fee.discount || 0)}>
-                      <Download className="h-3 w-3 mr-1" />
-                      {fee.receipt_number}
-                    </Button>
-                  ) : '-'}
+                  {fee.payment_status !== 'unpaid' ? (() => {
+                    const payment = fee.receipt_number
+                      ? { receipt_number: fee.receipt_number, paid_at: fee.paid_at!, amount: fee.paid_amount || 0 }
+                      : getFeePayment(fee.id);
+                    return payment?.receipt_number ? (
+                      <Button size="sm" variant="outline" onClick={() => handleDownloadReceipt(payment.receipt_number, payment.paid_at, fee.fee_type, fee.amount, payment.amount, fee.discount || 0)}>
+                        <Download className="h-3 w-3 mr-1" />
+                        {payment.receipt_number}
+                      </Button>
+                    ) : (
+                      <span className="text-xs text-muted-foreground">-</span>
+                    );
+                  })() : (
+                    <span className="text-xs text-muted-foreground">-</span>
+                  )}
                 </TableCell>
               </TableRow>
             ))}
