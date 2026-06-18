@@ -119,18 +119,45 @@ export default function FeesManagement() {
     }
   };
 
-  const handleDownloadReceipt = (fee: FeeRecord) => {
-    if (!fee.receipt_number || !fee.paid_at) return;
+  const handleDownloadReceipt = async (fee: FeeRecord) => {
+    if (!fee.paid_at) {
+      toast({ variant: 'destructive', title: 'No receipt available', description: 'This fee has not been paid yet.' });
+      return;
+    }
+
+    let receiptNumber = fee.receipt_number;
+    let paidAt = fee.paid_at;
+    let paidAmount = fee.paid_amount || 0;
+
+    if (!receiptNumber) {
+      try {
+        const data = await apiClient.post<{ payments: { receipt_number: string; paid_at: string; amount: number }[] }>('/fees/payments', { fee_ids: [fee.id] });
+        const payment = data.payments?.[0];
+        if (payment?.receipt_number) {
+          receiptNumber = payment.receipt_number;
+          paidAt = payment.paid_at;
+          paidAmount = payment.amount;
+        }
+      } catch (error) {
+        console.error('Error fetching payment for receipt:', error);
+      }
+    }
+
+    if (!receiptNumber || !paidAt) {
+      toast({ variant: 'destructive', title: 'No receipt available', description: 'Payment receipt number could not be found.' });
+      return;
+    }
+
     generateFeeReceipt({
-      receiptNumber: fee.receipt_number,
+      receiptNumber,
       studentName: fee.students?.full_name || 'N/A',
       admissionNumber: fee.students?.login_id || fee.students?.admission_number,
       className: fee.students?.classes ? (fee.students.classes.section ? `${fee.students.classes.name} - ${fee.students.classes.section}` : fee.students.classes.name) : undefined,
       feeType: fee.fee_type,
       amount: fee.amount,
       discount: fee.discount || 0,
-      paidAmount: fee.paid_amount || 0,
-      paidAt: fee.paid_at,
+      paidAmount,
+      paidAt,
       template: receiptTemplate || undefined,
     });
   };
@@ -442,6 +469,7 @@ export default function FeesManagement() {
                             <TableHead>Balance</TableHead>
                             <TableHead>Due Date</TableHead>
                             <TableHead>Status</TableHead>
+                            <TableHead>Receipt</TableHead>
                             <TableHead>Actions</TableHead>
                           </TableRow>
                         </TableHeader>
@@ -464,6 +492,16 @@ export default function FeesManagement() {
                               <TableCell>{new Date(fee.due_date).toLocaleDateString()}</TableCell>
                               <TableCell>{getStatusBadge(fee.payment_status, fee.due_date)}</TableCell>
                               <TableCell>
+                                {fee.payment_status !== 'unpaid' ? (
+                                  <Button size="sm" variant="outline" onClick={() => handleDownloadReceipt(fee)}>
+                                    <Download className="h-3 w-3 mr-1" />
+                                    {fee.receipt_number || 'Receipt'}
+                                  </Button>
+                                ) : (
+                                  <span className="text-xs text-muted-foreground">-</span>
+                                )}
+                              </TableCell>
+                              <TableCell>
                                 <div className="flex items-center gap-1">
                                   <Button size="sm" variant="ghost" onClick={() => setEditFee(fee)} title="Edit">
                                     <Edit2 className="h-3 w-3" />
@@ -474,11 +512,6 @@ export default function FeesManagement() {
                                   {fee.payment_status !== 'paid' && (
                                     <Button size="sm" variant="outline" onClick={() => setPaymentFee(fee)}>
                                       <DollarSign className="h-3 w-3 mr-1" />Record
-                                    </Button>
-                                  )}
-                                  {fee.receipt_number && (
-                                    <Button size="sm" variant="ghost" onClick={() => handleDownloadReceipt(fee)}>
-                                      <Download className="h-3 w-3 mr-1" />Receipt
                                     </Button>
                                   )}
                                 </div>
@@ -557,7 +590,7 @@ export default function FeesManagement() {
                                     <div />
                                   )}
                                 </div>
-                                {fee.receipt_number && (
+                                {fee.payment_status !== 'unpaid' && (
                                   <Button size="sm" variant="outline" className="w-full h-9 text-xs" onClick={() => handleDownloadReceipt(fee)}>
                                     <Download className="h-3.5 w-3.5 mr-1" /> Download Receipt
                                   </Button>
